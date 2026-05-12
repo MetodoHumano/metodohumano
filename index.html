@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Método Humano — Saúde mental baseada em ciência e empatia. Unimos rigor científico a uma abordagem profundamente humana.">
+  <meta name="theme-color" content="#535250">
+  <title>Método Humano | Saúde Mental Baseada em Evidências</title>
+  <link rel="icon" type="image/png" href="assets/Favicon_MH_512x512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cinza: #535250;
+      --cinza-rgb: 83, 82, 80;
+      --off-white: #FBFBFB;
+      --verde-menta: #068853;
+      --verde-claro: #11F398;
+      --font: 'Montserrat', sans-serif;
+      --max-w: 1140px;
+      --nav-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+    body { font-family: var(--font); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--cinza); background: var(--off-white); -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--verde-menta); text-decoration: none; transition: opacity .2s; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(var(--cinza-rgb), .95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: background .3s, box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.15); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .nav-logo img { height: 40px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--off-white); font-size: 14px; font-weight: 600; letter-spacing: .03em;
+      text-decoration: none; position: relative; padding: 4px 0;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+      background: var(--verde-claro); transition: width .3s;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover { text-decoration: none; }
+    .nav-cta {
+      background: var(--verde-menta); color: var(--off-white) !important;
+      padding: 10px 24px; border-radius: 4px; font-weight: 700; font-size: 13px;
+      letter-spacing: .04em; text-transform: uppercase; transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: #057a4a; transform: translateY(-1px); text-decoration: none; }
+    .nav-cta::after { display: none !important; }
+
+    /* Mobile hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--off-white); margin: 5px 0; transition: transform .3s, opacity .3s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--cinza); position: relative; overflow: hidden; text-align: center;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(6,136,83,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(17,243,152,.05) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: var(--verde-claro);
+    }
+    .hero-content { position: relative; z-index: 1; padding: 40px 24px; }
+    .hero-logo { width: 200px; margin: 0 auto 48px; opacity: 0; animation: fadeUp .8s ease forwards; }
+    .hero h1 {
+      color: var(--off-white); font-weight: 800; font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.2; margin-bottom: 20px; opacity: 0; animation: fadeUp .8s ease .2s forwards;
+    }
+    .hero h1 .accent { color: var(--verde-claro); }
+    .hero p {
+      color: rgba(251,251,251,.75); font-weight: 300; font-size: clamp(16px, 2.5vw, 20px);
+      max-width: 600px; margin: 0 auto 40px; line-height: 1.6;
+      opacity: 0; animation: fadeUp .8s ease .4s forwards;
+    }
+    .hero-actions { opacity: 0; animation: fadeUp .8s ease .6s forwards; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-block; padding: 14px 32px; border-radius: 4px;
+      font-family: var(--font); font-weight: 700; font-size: 14px;
+      letter-spacing: .04em; text-transform: uppercase; text-decoration: none;
+      transition: transform .2s, box-shadow .2s, background .2s; cursor: pointer; border: none;
+    }
+    .btn:hover { text-decoration: none; }
+    .btn-primary { background: var(--verde-menta); color: var(--off-white); }
+    .btn-primary:hover { background: #057a4a; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(6,136,83,.3); }
+    .btn-outline { background: transparent; color: var(--off-white); border: 2px solid rgba(251,251,251,.3); }
+    .btn-outline:hover { border-color: var(--verde-claro); color: var(--verde-claro); transform: translateY(-2px); }
+    .btn-dark { background: var(--cinza); color: var(--off-white); }
+    .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(83,82,80,.3); }
+
+    /* ===== SECTIONS ===== */
+    .section { padding: 100px 0; }
+    .section-dark { background: var(--cinza); color: var(--off-white); }
+    .section-dark .accent-line { background: var(--verde-claro); }
+    .section-light { background: var(--off-white); color: var(--cinza); }
+    .section-light .accent-line { background: var(--verde-menta); }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--verde-menta); margin-bottom: 12px;
+    }
+    .section-dark .section-label { color: var(--verde-claro); }
+    .section-header h2 { font-weight: 800; font-size: clamp(24px, 4vw, 36px); margin-bottom: 16px; }
+    .accent-line { width: 48px; height: 3px; margin: 0 auto 24px; border-radius: 2px; }
+    .section-header p { font-weight: 300; font-size: 18px; max-width: 600px; margin: 0 auto; opacity: .8; }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== PILARES (3 cards) ===== */
+    .pilares-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .pilar-card {
+      background: white; border-radius: 8px; padding: 40px 32px;
+      border: 1px solid rgba(83,82,80,.08);
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .pilar-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--verde-menta); transform: scaleX(0); transform-origin: left;
+      transition: transform .4s;
+    }
+    .pilar-card:hover::before { transform: scaleX(1); }
+    .pilar-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(83,82,80,.08); }
+    .pilar-icon { font-size: 32px; margin-bottom: 20px; }
+    .pilar-card h3 { font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+    .pilar-card p { font-weight: 300; font-size: 15px; line-height: 1.7; opacity: .8; }
+
+    /* ===== VALORES ===== */
+    .valores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; text-align: center; }
+    .valor-item { padding: 24px 16px; }
+    .valor-icon { font-size: 28px; margin-bottom: 12px; }
+    .valor-item h4 { font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(--verde-claro); }
+    .valor-item p { font-weight: 300; font-size: 13px; line-height: 1.6; opacity: .75; }
+
+    /* ===== QUOTE / DESTAQUE ===== */
+    .quote-section {
+      padding: 80px 0; background: var(--cinza); text-align: center;
+      position: relative;
+    }
+    .quote-section::before, .quote-section::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 3px;
+      background: var(--verde-claro);
+    }
+    .quote-section::before { top: 0; }
+    .quote-section::after { bottom: 0; }
+    .quote-text {
+      font-weight: 300; font-size: clamp(20px, 3.5vw, 32px); color: var(--off-white);
+      max-width: 800px; margin: 0 auto; line-height: 1.5; font-style: italic;
+    }
+    .quote-text .accent { color: var(--verde-claro); font-style: normal; font-weight: 700; }
+
+    /* ===== SERVIÇOS ===== */
+    .servicos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .servico-card {
+      padding: 36px 32px; border-radius: 8px;
+      background: rgba(var(--cinza-rgb), .03); border: 1px solid rgba(var(--cinza-rgb), .06);
+      transition: transform .3s, border-color .3s;
+    }
+    .servico-card:hover { transform: translateY(-2px); border-color: var(--verde-menta); }
+    .servico-num { font-weight: 800; font-size: 13px; color: var(--verde-menta); margin-bottom: 12px; letter-spacing: .1em; }
+    .servico-card h3 { font-weight: 700; font-size: 18px; margin-bottom: 10px; }
+    .servico-card p { font-weight: 300; font-size: 15px; opacity: .75; line-height: 1.7; }
+
+    /* ===== EQUIPE ===== */
+    .equipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+    .equipe-card {}
+    .equipe-avatar {
+      width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px;
+      background: rgba(var(--cinza-rgb), .08); display: flex; align-items: center; justify-content: center;
+      font-size: 48px; color: var(--cinza); opacity: .3;
+      border: 3px solid rgba(var(--cinza-rgb), .06);
+    }
+    .equipe-card h3 { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+    .equipe-card .role { font-weight: 600; font-size: 13px; color: var(--verde-menta); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+    .equipe-card .crp { font-weight: 300; font-size: 13px; opacity: .5; margin-bottom: 12px; }
+    .equipe-card p { font-weight: 300; font-size: 14px; opacity: .7; line-height: 1.6; }
+
+    /* ===== TOM DE VOZ ===== */
+    .voz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .voz-col h3 { font-weight: 700; font-size: 18px; margin-bottom: 20px; }
+    .voz-col.do h3 { color: var(--verde-menta); }
+    .voz-col.dont h3 { color: #c0392b; }
+    .voz-item {
+      padding: 16px 20px; margin-bottom: 12px; border-radius: 6px;
+      font-size: 15px; font-weight: 400; line-height: 1.5;
+    }
+    .voz-col.do .voz-item { background: rgba(6,136,83,.06); border-left: 3px solid var(--verde-menta); }
+    .voz-col.dont .voz-item { background: rgba(192,57,43,.05); border-left: 3px solid #c0392b; }
+
+    /* ===== CONTATO ===== */
+    .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contato-info h3 { font-weight: 700; font-size: 20px; margin-bottom: 24px; }
+    .contato-item { margin-bottom: 24px; }
+    .contato-item .label { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--verde-menta); margin-bottom: 4px; }
+    .contato-item p { font-weight: 300; font-size: 15px; }
+
+    .contact-form {}
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; letter-spacing: .02em; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 14px 16px; border: 1px solid rgba(var(--cinza-rgb), .15);
+      border-radius: 4px; font-family: var(--font); font-size: 15px; font-weight: 400;
+      background: white; color: var(--cinza); transition: border-color .2s;
+      outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--verde-menta); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--cinza); color: var(--off-white); padding: 60px 0 30px;
+      position: relative;
+    }
+    .footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--verde-claro); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 50px; margin-bottom: 16px; filter: brightness(0) invert(1) brightness(.95); }
+    .footer-brand p { font-weight: 300; font-size: 14px; opacity: .6; max-width: 320px; line-height: 1.6; }
+    .footer h4 { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; color: var(--verde-claro); }
+    .footer ul { list-style: none; }
+    .footer ul li { margin-bottom: 10px; }
+    .footer ul a { color: rgba(251,251,251,.6); font-weight: 300; font-size: 14px; }
+    .footer ul a:hover { color: var(--verde-claro); }
+    .footer-bottom { border-top: 1px solid rgba(251,251,251,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-weight: 300; font-size: 13px; opacity: .4; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(251,251,251,.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--off-white); font-size: 14px; transition: border-color .2s, color .2s;
+    }
+    .footer-social a:hover { border-color: var(--verde-claro); color: var(--verde-claro); text-decoration: none; }
+
+    /* ===== BACK TO TOP ===== */
+    .back-top {
+      position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+      background: var(--verde-menta); color: var(--off-white); border: none;
+      border-radius: 50%; cursor: pointer; font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+      box-shadow: 0 4px 12px rgba(6,136,83,.3); z-index: 90;
+    }
+    .back-top.show { opacity: 1; pointer-events: auto; }
+    .back-top:hover { transform: translateY(-2px); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .pilares-grid { grid-template-columns: 1fr; }
+      .valores-grid { grid-template-columns: repeat(3, 1fr); }
+      .servicos-grid { grid-template-columns: 1fr; }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+      .contato-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-h: 64px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: var(--nav-h); left: 0; right: 0; background: var(--cinza);
+        padding: 24px; gap: 20px; border-bottom: 3px solid var(--verde-claro);
+      }
+      .nav-toggle { display: block; }
+      .section { padding: 72px 0; }
+      .valores-grid { grid-template-columns: repeat(2, 1fr); }
+      .equipe-grid { grid-template-columns: 1fr; }
+      .voz-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .hero { min-height: 90vh; }
+    }
+
+    @media (max-width: 480px) {
+      .valores-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo">
+        <img src="assets/Logo_MH_Site_Navigation.png" alt="Método Humano" style="filter: brightness(0) invert(1) brightness(.95);">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#blog">Conteúdo</a></li>
+        <li><a href="#contato" class="nav-cta">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img src="assets/Logo_MH_Site_Navigation.png" alt="Método Humano" class="hero-logo" style="filter: brightness(0) invert(1) brightness(.95);">
+      <h1>Saúde mental baseada em<br><span class="accent">ciência e empatia</span></h1>
+      <p>Unimos rigor científico a uma abordagem profundamente humana para transformar sua relação com o bem-estar mental.</p>
+      <div class="hero-actions">
+        <a href="#servicos" class="btn btn-primary">Nossos serviços</a>
+        <a href="#sobre" class="btn btn-outline">Conheça a clínica</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PILARES ===== -->
+  <section class="section section-light" id="sobre">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Nossos Pilares</p>
+        <h2>O que nos guia</h2>
+        <div class="accent-line"></div>
+        <p>Toda atuação da Método Humano é sustentada por três pilares fundamentais que garantem a qualidade e a ética do nosso trabalho.</p>
+      </div>
+      <div class="pilares-grid">
+        <div class="pilar-card reveal">
+          <div class="pilar-icon">🔬</div>
+          <h3>Melhor Evidência Disponível</h3>
+          <p>Toda comunicação e conteúdo é fundamentada nas melhores evidências científicas — estudos revisados por pares, meta-análises e diretrizes de referência.</p>
+        </div>
+        <div class="pilar-card reveal">
+          <div class="pilar-icon">🎓</div>
+          <h3>Expertise Profissional</h3>
+          <p>Valorizamos o conhecimento técnico e a experiência clínica dos profissionais de saúde mental, orientando a curadoria e a profundidade de cada material.</p>
+        </div>
+        <div class="pilar-card reveal">
+          <div class="pilar-icon">🤝</div>
+          <h3>Respeito ao Contexto</h3>
+          <p>Reconhecemos que cada pessoa vive uma realidade única. Nossas orientações consideram o contexto individual, cultural e social de quem nos acompanha.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUOTE ===== -->
+  <section class="quote-section">
+    <div class="container reveal">
+      <p class="quote-text">"O <span class="accent">bem-estar mental</span> é um direito fundamental e a ciência pode — e deve — ser <span class="accent">acessível a todos</span>."</p>
+    </div>
+  </section>
+
+  <!-- ===== VALORES ===== -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Nossos Valores</p>
+        <h2>O que acreditamos</h2>
+        <div class="accent-line"></div>
+      </div>
+      <div class="valores-grid reveal">
+        <div class="valor-item">
+          <div class="valor-icon">📐</div>
+          <h4>Rigor Científico</h4>
+          <p>Conteúdo fundamentado em pesquisas e evidências atualizadas.</p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">💚</div>
+          <h4>Empatia Autêntica</h4>
+          <p>Comunicamos com sensibilidade, sem julgamentos.</p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">🗝️</div>
+          <h4>Acessibilidade</h4>
+          <p>Ciência traduzida em linguagem clara e prática.</p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">⚖️</div>
+          <h4>Ética</h4>
+          <p>Transparência e compromisso com o bem-estar real.</p>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">🌱</div>
+          <h4>Humanização</h4>
+          <p>O ser humano — com suas complexidades — no centro de tudo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVIÇOS ===== -->
+  <section class="section section-light" id="servicos">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Serviços</p>
+        <h2>Como podemos ajudar</h2>
+        <div class="accent-line"></div>
+        <p>Oferecemos atendimento personalizado com abordagens baseadas em evidências científicas.</p>
+      </div>
+      <div class="servicos-grid">
+        <div class="servico-card reveal">
+          <div class="servico-num">01</div>
+          <h3>Psicoterapia Individual</h3>
+          <p>Atendimento personalizado utilizando abordagens terapêuticas com respaldo científico, adaptadas às necessidades e ao contexto de cada pessoa.</p>
+        </div>
+        <div class="servico-card reveal">
+          <div class="servico-num">02</div>
+          <h3>Terapia de Casal e Família</h3>
+          <p>Fortalecimento de vínculos, melhoria na comunicação e resolução de conflitos com técnicas baseadas em evidências.</p>
+        </div>
+        <div class="servico-card reveal">
+          <div class="servico-num">03</div>
+          <h3>Avaliação Neuropsicológica</h3>
+          <p>Mapeamento cognitivo e emocional completo para compreensão aprofundada do funcionamento mental.</p>
+        </div>
+        <div class="servico-card reveal">
+          <div class="servico-num">04</div>
+          <h3>Grupos Terapêuticos</h3>
+          <p>Espaço de acolhimento e troca entre pares, facilitado por profissionais qualificados com dinâmicas estruturadas.</p>
+        </div>
+        <div class="servico-card reveal">
+          <div class="servico-num">05</div>
+          <h3>Palestras e Workshops</h3>
+          <p>Conteúdo psicoeducativo para empresas, escolas e organizações, com fundamentação científica e linguagem acessível.</p>
+        </div>
+        <div class="servico-card reveal">
+          <div class="servico-num">06</div>
+          <h3>Consultoria Corporativa</h3>
+          <p>Programas de saúde mental para empresas — diagnóstico, intervenção e acompanhamento baseados em dados e evidências.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOM DE VOZ ===== -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Tom de Voz</p>
+        <h2>Especialista Empático</h2>
+        <div class="accent-line"></div>
+        <p>Nossa voz é a de um especialista que se importa. Equilibramos autoridade científica com calor humano.</p>
+      </div>
+      <div class="voz-grid reveal">
+        <div class="voz-col do">
+          <h3>✓ Como falamos</h3>
+          <div class="voz-item">"Estudos recentes mostram que..."</div>
+          <div class="voz-item">"Você sabia que o seu cérebro..."</div>
+          <div class="voz-item">"É normal sentir isso. Vamos entender."</div>
+          <div class="voz-item">"Uma estratégia baseada em evidências..."</div>
+        </div>
+        <div class="voz-col dont">
+          <h3>✗ Como não falamos</h3>
+          <div class="voz-item">"Isso vai mudar sua vida!"</div>
+          <div class="voz-item">"Só quem tem força de vontade supera..."</div>
+          <div class="voz-item">"Pare de se sentir assim."</div>
+          <div class="voz-item">"Esse truque simples resolve tudo."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EQUIPE ===== -->
+  <section class="section section-light" id="equipe">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Equipe</p>
+        <h2>Nossos Profissionais</h2>
+        <div class="accent-line"></div>
+        <p>Profissionais qualificados comprometidos com a excelência clínica e o acolhimento humano.</p>
+      </div>
+      <div class="equipe-grid reveal">
+        <div class="equipe-card">
+          <div class="equipe-avatar">👤</div>
+          <h3>Dra. Nome Sobrenome</h3>
+          <div class="role">Psicóloga Clínica</div>
+          <div class="crp">CRP 00/00000</div>
+          <p>Especialista em TCC com foco em transtornos de ansiedade. Experiência de 10+ anos em atendimento clínico.</p>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-avatar">👤</div>
+          <h3>Dr. Nome Sobrenome</h3>
+          <div class="role">Neuropsicólogo</div>
+          <div class="crp">CRP 00/00000</div>
+          <p>Especialista em avaliação neuropsicológica e reabilitação cognitiva. Mestre em Neurociências.</p>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-avatar">👤</div>
+          <h3>Dra. Nome Sobrenome</h3>
+          <div class="role">Psicoterapeuta</div>
+          <div class="crp">CRP 00/00000</div>
+          <p>Abordagem integrativa com ênfase em regulação emocional e mindfulness baseado em evidências.</p>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top: 32px; font-size: 14px; opacity: .5; font-weight: 300;">
+        *Substitua os nomes e informações pelos dados reais da equipe.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== BLOG / CONTEÚDO ===== -->
+  <section class="section section-dark" id="blog">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Conteúdo</p>
+        <h2>Baseado em evidências</h2>
+        <div class="accent-line"></div>
+        <p>Artigos, reflexões e ferramentas práticas fundamentados na ciência para o seu bem-estar.</p>
+      </div>
+      <div class="servicos-grid reveal">
+        <div class="servico-card" style="background: rgba(251,251,251,.05); border-color: rgba(251,251,251,.08);">
+          <div class="servico-num" style="color: var(--verde-claro);">ARTIGO</div>
+          <h3 style="color: var(--off-white);">Por que dormimos mal?</h3>
+          <p style="color: rgba(251,251,251,.6);">A ciência por trás do sono e da ansiedade — como o cortisol afeta a qualidade do sono e o que fazer a respeito.</p>
+        </div>
+        <div class="servico-card" style="background: rgba(251,251,251,.05); border-color: rgba(251,251,251,.08);">
+          <div class="servico-num" style="color: var(--verde-claro);">ARTIGO</div>
+          <h3 style="color: var(--off-white);">Ansiedade não é frescura</h3>
+          <p style="color: rgba(251,251,251,.6);">Uma resposta do sistema nervoso que pode ser compreendida e regulada com as ferramentas certas.</p>
+        </div>
+        <div class="servico-card" style="background: rgba(251,251,251,.05); border-color: rgba(251,251,251,.08);">
+          <div class="servico-num" style="color: var(--verde-claro);">ARTIGO</div>
+          <h3 style="color: var(--off-white);">3 sinais de que você precisa de uma pausa</h3>
+          <p style="color: rgba(251,251,251,.6);">Irritabilidade constante, dificuldade de concentração e cansaço que não passa — o que a ciência diz.</p>
+        </div>
+        <div class="servico-card" style="background: rgba(251,251,251,.05); border-color: rgba(251,251,251,.08);">
+          <div class="servico-num" style="color: var(--verde-claro);">ARTIGO</div>
+          <h3 style="color: var(--off-white);">Regulação emocional: um guia prático</h3>
+          <p style="color: rgba(251,251,251,.6);">Estratégias baseadas em evidências para compreender e gerenciar suas emoções no dia a dia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section class="section section-light" id="contato">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Contato</p>
+        <h2>Fale conosco</h2>
+        <div class="accent-line"></div>
+        <p>Agende uma consulta ou tire suas dúvidas. Estamos aqui para ajudar.</p>
+      </div>
+      <div class="contato-grid reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefone">Telefone</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group">
+              <label for="assunto">Assunto</label>
+              <select id="assunto" name="assunto">
+                <option value="">Selecione</option>
+                <option value="agendamento">Agendar consulta</option>
+                <option value="informacoes">Informações sobre serviços</option>
+                <option value="corporativo">Atendimento corporativo</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Como podemos ajudar?" required></textarea>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="handleSubmit()" style="width: 100%;">Enviar mensagem</button>
+          <p id="formMsg" style="margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--verde-menta); display: none;">
+            ✓ Mensagem enviada! Entraremos em contato em breve.
+          </p>
+        </div>
+        <div class="contato-info">
+          <h3>Informações</h3>
+          <div class="contato-item">
+            <div class="label">Endereço</div>
+            <p>Rua Exemplo, 123 — Sala 45<br>Bairro, Cidade — UF<br>CEP 00000-000</p>
+          </div>
+          <div class="contato-item">
+            <div class="label">Telefone</div>
+            <p>(00) 00000-0000</p>
+          </div>
+          <div class="contato-item">
+            <div class="label">E-mail</div>
+            <p>contato@metodohumano.com.br</p>
+          </div>
+          <div class="contato-item">
+            <div class="label">Horário de Atendimento</div>
+            <p>Segunda a Sexta: 8h – 20h<br>Sábado: 8h – 14h</p>
+          </div>
+          <div style="margin-top: 32px;">
+            <a href="#" class="btn btn-dark" style="font-size: 12px; padding: 12px 24px;">
+              📍 Ver no Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/Logo_MH_Site_Navigation.png" alt="Método Humano">
+          <p>Unimos rigor científico a uma abordagem profundamente empática para transformar a relação das pessoas com a saúde mental.</p>
+        </div>
+        <div>
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#blog">Conteúdo</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="mailto:contato@metodohumano.com.br">contato@metodohumano.com.br</a></li>
+            <li><a href="tel:+5500000000000">(00) 00000-0000</a></li>
+          </ul>
+          <h4 style="margin-top: 24px;">Redes Sociais</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Método Humano. Todos os direitos reservados.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-top" id="backTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0})">↑</button>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+      backTop.classList.toggle('show', window.scrollY > 400);
+    });
+
+    // Mobile toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+    // Close menu on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        links.classList.remove('open');
+      });
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+      });
+      navAnchors.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form handler (placeholder)
+    function handleSubmit() {
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const msg = document.getElementById('mensagem').value;
+      if (!nome || !email || !msg) { alert('Por favor, preencha os campos obrigatórios.'); return; }
+      document.getElementById('formMsg').style.display = 'block';
+      // TODO: Connect to Formspree, Netlify Forms, or Google Forms
+      // Example with Formspree: fetch('https://formspree.io/f/YOUR_ID', { method: 'POST', body: new FormData(...) })
+    }
+  </script>
+</body>
+</html>
